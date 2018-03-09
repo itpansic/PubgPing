@@ -7,6 +7,18 @@ import string
 import datetime
 import urllib2
 from urllib2 import Request, urlopen, URLError, HTTPError
+
+def pingUrl(url):
+    try:
+        response = urllib2.urlopen(url)
+    except HTTPError as e:
+        return True
+    except URLError as e:
+        return False
+    else:
+        return False
+
+
 def pingWithNum(strNum):
     if strNum == "1":
         print("---\033[1;32m首尔\033[0m")
@@ -25,26 +37,25 @@ def pingWithNum(strNum):
         i = i + 1
         column = column + 1
         urlTmp = url + ''.join(random.sample(string.ascii_letters + string.digits, 13))
-        t = time.time()
-        nowTime = int(round(t * 1000))
-        try:
-            response = urllib2.urlopen(urlTmp)
-        except HTTPError as e:
-            te = time.time()
-            delta = int(round((te - t) * 1000))
-            count = count + 1
-            amount = amount + delta
-            if column < 8:
-                print delta, "\t",
+        result = pingUrl(urlTmp)
+        if result:
+            t = time.time()
+            result = pingUrl(urlTmp)
+            if result:
+                te = time.time()
+                delta = int(round((te - t) * 1000))
+                count = count + 1
+                amount = amount + delta
+                if column < 8:
+                    print delta, "\t",
 
+                else:
+                    print delta, "\t"
+                    column = 0
+
+                continue
             else:
-                print delta, "\t"
-                column = 0
-
-            continue
-        except URLError as e:
-            print 'Reason: ', e.reason
-            continue
+                continue
         else:
             continue
     if count > 0:
