@@ -33,31 +33,29 @@ def pingWithNum(strNum):
     column = 0
     amount = 0
     count = 0
+    urlTmp = url + ''.join(random.sample(string.ascii_letters + string.digits, 13))
+    result = pingUrl(urlTmp)
     while i < 24:
         i = i + 1
         column = column + 1
-        urlTmp = url + ''.join(random.sample(string.ascii_letters + string.digits, 13))
+        t = time.time()
         result = pingUrl(urlTmp)
         if result:
-            t = time.time()
-            result = pingUrl(urlTmp)
-            if result:
-                te = time.time()
-                delta = int(round((te - t) * 1000))
-                count = count + 1
-                amount = amount + delta
-                if column < 8:
-                    print delta, "\t",
+            te = time.time()
+            delta = int(round((te - t) * 1000))
+            count = count + 1
+            amount = amount + delta
+            if column < 8:
+                print delta, "\t",
 
-                else:
-                    print delta, "\t"
-                    column = 0
-
-                continue
             else:
-                continue
+                print delta, "\t"
+                column = 0
+
+            continue
         else:
             continue
+
     if count > 0:
         print "---\033[1;32mavg:      %s\033[0m"%int(round(amount / count)),
     print "\n"
