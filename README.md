@@ -16,3 +16,7 @@ yum install -y wget
 3. 启动脚本
 
 python -u pubg.py
+
+4. 结束脚本
+
+CTRL + C
