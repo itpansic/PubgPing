@@ -100,3 +100,5 @@ ENV/
 *.xml
 *.iml
 *.xml
+*.xml___jb_tmp___
+*.xml
